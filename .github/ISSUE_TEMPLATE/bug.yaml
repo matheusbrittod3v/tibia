@@ -1,12 +1,39 @@
 name: Report a problem/bug
 description: Any issues that you have found while using the server
 title: "[Bug]: "
-labels: [bug]
+labels: ["Status: Pending Test", "Type: Bug"]
 body:
   - type: markdown
     attributes:
       value: |
-        Thanks for taking the time to fill out this bug report!
+        Thanks for taking the time to fill out this issue!
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      description: How critical is this?
+      options:
+        - Low
+        - Medium
+        - High
+        - Critical
+    validations:
+      required: true
+
+
+  - type: checkboxes
+    id: area
+    attributes:
+      label: Area
+      description: Where is the problem?
+      options:
+        - label: Datapack
+        - label: Docker
+        - label: Map
+        - label: Source
+    validations:
+      required: true
 
   - type: textarea
     id: what-happened
@@ -45,17 +72,6 @@ body:
       description: Attach screenshots, full logs, etc ... that helps verifying the bug
 
   - type: dropdown
-    id: version
-    attributes:
-      label: Version
-      description: What version of our software are you running?
-      options:
-        - 12.x (Default)
-        - 10/12.x (10/12.x branch)
-    validations:
-      required: true
-
-  - type: dropdown
     id: os
     attributes:
       label: What OS are you seeing the problem on?
@@ -71,7 +87,7 @@ body:
     id: terms
     attributes:
       label: Code of Conduct
-      description: By submitting this issue, you agree to follow our [Code of Conduct](https://github.com/opentibiabr/otservbr-global/blob/develop/CODE_OF_CONDUCT.md)
+      description: By submitting this issue, you agree to follow our [Code of Conduct](https://github.com/opentibiabr/canary/blob/main/CODE_OF_CONDUCT.md)
       options:
         - label: I agree to follow this project's Code of Conduct
           required: true
