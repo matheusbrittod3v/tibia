@@ -34097,6 +34097,9 @@
 	<monster centerx="32552" centery="31862" centerz="7" radius="1">
 		<monster name="Deer" x="-1" y="0" z="7" spawntime="90" />
 	</monster>
+	<monster centerx="33855" centery="31862" centerz="7" radius="1">
+		<monster name="Dreadful Harvester" x="0" y="0" z="7" spawntime="60" />
+	</monster>
 	<monster centerx="32641" centery="31863" centerz="7" radius="2">
 		<monster name="Deer" x="0" y="2" z="7" spawntime="90" />
 	</monster>
@@ -34128,6 +34131,9 @@
 	</monster>
 	<monster centerx="32575" centery="31866" centerz="7" radius="1">
 		<monster name="Deer" x="1" y="-1" z="7" spawntime="90" />
+	</monster>
+	<monster centerx="33855" centery="31866" centerz="7" radius="1">
+		<monster name="Mean Maw" x="0" y="0" z="7" spawntime="10" />
 	</monster>
 	<monster centerx="32042" centery="31867" centerz="7" radius="3">
 		<monster name="Dawnfly" x="1" y="2" z="7" spawntime="90" />
@@ -34213,6 +34219,9 @@
 	<monster centerx="33135" centery="31870" centerz="7" radius="2">
 		<monster name="Deer" x="1" y="-2" z="7" spawntime="90" />
 		<monster name="Deer" x="0" y="2" z="7" spawntime="90" />
+	</monster>
+	<monster centerx="33851" centery="31870" centerz="7" radius="1">
+		<monster name="Poor Soul" x="0" y="0" z="7" spawntime="10" />
 	</monster>
 	<monster centerx="32088" centery="31871" centerz="7" radius="1">
 		<monster name="Deer" x="0" y="0" z="7" spawntime="90" />
@@ -161998,8 +162007,14 @@
 	<monster centerx="32513" centery="31593" centerz="14" radius="3">
 		<monster name="Warlock" x="1" y="1" z="14" spawntime="90" />
 	</monster>
+	<monster centerx="33708" centery="31593" centerz="14" radius="1">
+		<monster name="Dreadful Harvester" x="0" y="0" z="14" spawntime="10" />
+	</monster>
 	<monster centerx="32505" centery="31594" centerz="14" radius="3">
 		<monster name="Warlock" x="0" y="-1" z="14" spawntime="90" />
+	</monster>
+	<monster centerx="33739" centery="31595" centerz="14" radius="1">
+		<monster name="Dreadful Harvester" x="0" y="0" z="14" spawntime="10" />
 	</monster>
 	<monster centerx="33349" centery="31596" centerz="14" radius="7">
 		<monster name="Dark Torturer" x="0" y="-7" z="14" spawntime="90" />
@@ -162027,6 +162042,15 @@
 		<monster name="Dark Torturer" x="4" y="5" z="14" spawntime="90" />
 		<monster name="Lost Soul" x="0" y="6" z="14" spawntime="90" />
 	</monster>
+	<monster centerx="33706" centery="31596" centerz="14" radius="1">
+		<monster name="Malicious Soul" x="0" y="0" z="14" spawntime="10" />
+	</monster>
+	<monster centerx="33712" centery="31596" centerz="14" radius="1">
+		<monster name="Dreadful Harvester" x="0" y="0" z="14" spawntime="10" />
+	</monster>
+	<monster centerx="33748" centery="31596" centerz="14" radius="1">
+		<monster name="Dreadful Harvester" x="0" y="0" z="14" spawntime="10" />
+	</monster>
 	<monster centerx="32805" centery="31598" centerz="14" radius="1">
 		<monster name="Skeleton" x="1" y="0" z="14" spawntime="90" />
 	</monster>
@@ -162035,6 +162059,12 @@
 	</monster>
 	<monster centerx="33161" centery="31598" centerz="14" radius="1">
 		<monster name="Dark Magician" x="0" y="1" z="14" spawntime="90" />
+	</monster>
+	<monster centerx="33738" centery="31599" centerz="14" radius="1">
+		<monster name="Symbol of Hatred" x="0" y="0" z="14" spawntime="10" />
+	</monster>
+	<monster centerx="33748" centery="31599" centerz="14" radius="1">
+		<monster name="Symbol of Hatred" x="0" y="0" z="14" spawntime="10" />
 	</monster>
 	<monster centerx="32808" centery="31600" centerz="14" radius="1">
 		<monster name="Ghoul" x="1" y="0" z="14" spawntime="90" />
@@ -162050,6 +162080,9 @@
 	<monster centerx="33140" centery="31601" centerz="14" radius="1">
 		<monster name="Monk" x="1" y="-1" z="14" spawntime="90" />
 	</monster>
+	<monster centerx="33745" centery="31601" centerz="14" radius="1">
+		<monster name="Hateful Soul" x="1" y="0" z="14" spawntime="10" />
+	</monster>
 	<monster centerx="32423" centery="31602" centerz="14" radius="3">
 		<monster name="Warlock" x="-1" y="-3" z="14" spawntime="90" />
 		<monster name="Elf Arcanist" x="1" y="1" z="14" spawntime="90" />
@@ -162061,6 +162094,9 @@
 	<monster centerx="32807" centery="31602" centerz="14" radius="1">
 		<monster name="Demon Skeleton" x="1" y="0" z="14" spawntime="90" />
 		<monster name="Demon Skeleton" x="1" y="1" z="14" spawntime="90" />
+	</monster>
+	<monster centerx="33748" centery="31602" centerz="14" radius="1">
+		<monster name="Dreadful Harvester" x="0" y="0" z="14" spawntime="10" />
 	</monster>
 	<monster centerx="33156" centery="31603" centerz="14" radius="1">
 		<monster name="Stone Golem" x="1" y="-1" z="14" spawntime="90" />
@@ -162082,6 +162118,12 @@
 		<monster name="Fire Elemental" x="-5" y="3" z="14" spawntime="90" />
 		<monster name="Fire Elemental" x="0" y="4" z="14" spawntime="90" />
 		<monster name="Fire Elemental" x="4" y="4" z="14" spawntime="90" />
+	</monster>
+	<monster centerx="33706" centery="31603" centerz="14" radius="1">
+		<monster name="Malicious Soul" x="0" y="0" z="14" spawntime="10" />
+	</monster>
+	<monster centerx="33743" centery="31603" centerz="14" radius="1">
+		<monster name="Hateful Soul" x="0" y="0" z="14" spawntime="10" />
 	</monster>
 	<monster centerx="33137" centery="31604" centerz="14" radius="1">
 		<monster name="Monk" x="0" y="-1" z="14" spawntime="90" />
@@ -162156,6 +162198,9 @@
 		<monster name="Blood Crab" x="0" y="-3" z="14" spawntime="60" />
 		<monster name="Sea Serpent" x="0" y="-1" z="14" spawntime="60" />
 	</monster>
+	<monster centerx="33747" centery="31629" centerz="14" radius="1">
+		<monster name="Dreadful Harvester" x="0" y="0" z="14" spawntime="10" />
+	</monster>
 	<monster centerx="32798" centery="31630" centerz="14" radius="1">
 		<monster name="Ghoul" x="1" y="0" z="14" spawntime="90" />
 	</monster>
@@ -162168,11 +162213,21 @@
 	<monster centerx="32795" centery="31631" centerz="14" radius="1">
 		<monster name="Ghoul" x="1" y="0" z="14" spawntime="90" />
 	</monster>
+	<monster centerx="33710" centery="31631" centerz="14" radius="1">
+		<monster name="Dreadful Harvester" x="-1" y="-1" z="14" spawntime="10" />
+		<monster name="Dreadful Harvester" x="0" y="0" z="14" spawntime="10" />
+	</monster>
+	<monster centerx="33744" centery="31631" centerz="14" radius="1">
+		<monster name="Dreadful Harvester" x="0" y="0" z="14" spawntime="10" />
+	</monster>
 	<monster centerx="32782" centery="31632" centerz="14" radius="1">
 		<monster name="Ghoul" x="1" y="0" z="14" spawntime="90" />
 	</monster>
 	<monster centerx="32799" centery="31632" centerz="14" radius="1">
 		<monster name="Bonelord" x="1" y="0" z="14" spawntime="90" />
+	</monster>
+	<monster centerx="33738" centery="31632" centerz="14" radius="1">
+		<monster name="Weeping Soul" x="0" y="0" z="14" spawntime="10" />
 	</monster>
 	<monster centerx="32795" centery="31633" centerz="14" radius="1">
 		<monster name="Skeleton" x="1" y="0" z="14" spawntime="90" />
@@ -162185,6 +162240,15 @@
 		<monster name="Demon Skeleton" x="-1" y="1" z="14" spawntime="90" />
 		<monster name="Skeleton" x="1" y="1" z="14" spawntime="90" />
 	</monster>
+	<monster centerx="33704" centery="31634" centerz="14" radius="1">
+		<monster name="Necromantic Focus" x="0" y="0" z="14" spawntime="10" />
+	</monster>
+	<monster centerx="33716" centery="31634" centerz="14" radius="1">
+		<monster name="Necromantic Focus" x="0" y="0" z="14" spawntime="10" />
+	</monster>
+	<monster centerx="33748" centery="31634" centerz="14" radius="1">
+		<monster name="Weeping Soul" x="0" y="0" z="14" spawntime="10" />
+	</monster>
 	<monster centerx="32792" centery="31635" centerz="14" radius="1">
 		<monster name="Ghoul" x="1" y="0" z="14" spawntime="90" />
 	</monster>
@@ -162194,12 +162258,18 @@
 	<monster centerx="32799" centery="31635" centerz="14" radius="1">
 		<monster name="Ghoul" x="1" y="0" z="14" spawntime="90" />
 	</monster>
+	<monster centerx="33711" centery="31635" centerz="14" radius="1">
+		<monster name="Lesser Splinter of Madness" x="1" y="0" z="14" spawntime="10" />
+	</monster>
 	<monster centerx="33498" centery="31636" centerz="14" radius="3">
 		<monster name="Shark" x="0" y="-3" z="14" spawntime="60" />
 		<monster name="Sea Serpent" x="1" y="-3" z="14" spawntime="60" />
 	</monster>
 	<monster centerx="33505" centery="31636" centerz="14" radius="3">
 		<monster name="Blood Crab" x="-1" y="2" z="14" spawntime="60" />
+	</monster>
+	<monster centerx="33744" centery="31636" centerz="14" radius="1">
+		<monster name="Spiteful Spitter" x="0" y="0" z="14" spawntime="10" />
 	</monster>
 	<monster centerx="33298" centery="31640" centerz="14" radius="1">
 		<monster name="Behemoth" x="-1" y="0" z="14" spawntime="90" />
