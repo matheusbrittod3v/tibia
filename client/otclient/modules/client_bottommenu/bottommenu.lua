@@ -511,6 +511,9 @@ end
 -- set creature/boss to boosted slot
 local function applyToBoostedSlot(outfitInfo, outfitWidget, imageWidget, fileName, tooltipText)
     if not outfitInfo then
+        outfitWidget:setVisible(false)
+        imageWidget:setVisible(true)
+        imageWidget:setImageSource("/images/ui/boosted-placeholder")
         return
     end
 
@@ -527,9 +530,14 @@ local function applyToBoostedSlot(outfitInfo, outfitWidget, imageWidget, fileNam
         }
 
         outfitWidget:setOutfit(outfit)
-        outfitWidget:getCreature():setStaticWalking(1000)
         outfitWidget:setVisible(true)
         imageWidget:setVisible(false)
+        addEvent(function()
+            local creature = outfitWidget:getCreature()
+            if creature then
+                creature:setStaticWalking(1000)
+            end
+        end)
         outfitWidget:setTooltip(tr(tooltipText, outfitInfo.name or "Unknown"))
         return
     end
@@ -540,6 +548,9 @@ local function applyToBoostedSlot(outfitInfo, outfitWidget, imageWidget, fileNam
             HTTP.downloadImage(imageUrl, function(path, err)
                 if err then
                     g_logger.warning(string.format("[%s] Unable to download boosted image: %s", fileName, tostring(imageUrl)))
+                    imageWidget:setImageSource("/images/ui/boosted-placeholder")
+                    imageWidget:setVisible(true)
+                    outfitWidget:setVisible(false)
                     return
                 end
 
@@ -557,6 +568,9 @@ local function applyToBoostedSlot(outfitInfo, outfitWidget, imageWidget, fileNam
 
     local raceId = tonumber(outfitInfo.raceId or outfitInfo.raceid or outfitInfo.creatureraceid or outfitInfo.bossraceid)
     if not raceId then
+        imageWidget:setImageSource("/images/ui/boosted-placeholder")
+        imageWidget:setVisible(true)
+        outfitWidget:setVisible(false)
         return
     end
 
@@ -564,13 +578,21 @@ local function applyToBoostedSlot(outfitInfo, outfitWidget, imageWidget, fileNam
     if not raceData or not raceData.raceId or raceData.raceId == 0 then
         local msg = string.format("[%s] Creature with race id %s was not found.", fileName, tostring(raceId))
         g_logger.warning(msg)
+        imageWidget:setImageSource("/images/ui/boosted-placeholder")
+        imageWidget:setVisible(true)
+        outfitWidget:setVisible(false)
         return
     end
 
     outfitWidget:setOutfit(raceData.outfit)
-    outfitWidget:getCreature():setStaticWalking(1000)
     outfitWidget:setVisible(true)
     imageWidget:setVisible(false)
+    addEvent(function()
+        local creature = outfitWidget:getCreature()
+        if creature then
+            creature:setStaticWalking(1000)
+        end
+    end)
     outfitWidget:setTooltip(tr(tooltipText, raceData.name or "Unknown"))
 end
 
