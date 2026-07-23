@@ -3,9 +3,10 @@
 
 -- updater
 Services = {
-    status = "http://209.126.81.68:8088/status",
-    websites = "http://209.126.81.68:8080/?subtopic=accountmanagement",
-    createAccount = "http://209.126.81.68:8080/api/v1/create_account",
+    status = "http://209.126.81.68:8080/api/v1/login",
+    websites = "http://209.126.81.68:8080/account/manage",
+    createAccount = "http://209.126.81.68:8080/account/createaccount",
+    getCoinsUrl = "http://209.126.81.68:8080/shop",
     clientAssets = {
         enabled = true,
         repository = "dudantas/tibia-client",
@@ -30,7 +31,7 @@ Servers_init = {}
 if ENABLE_SERVERS then
     Servers_init = {
         ["209.126.81.68"] = {
-            port = 8088,
+            port = 8080,
             protocol = 1525,
             httpLogin = true,
             useAuthenticator = false
