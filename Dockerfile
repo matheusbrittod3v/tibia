@@ -26,6 +26,7 @@ WORKDIR /canary
 
 COPY entrypoint.sh /usr/local/bin/canary-entrypoint.sh
 COPY schema.sql /canary/schema.sql
+COPY data/XML/vocations.xml /canary/data/XML/vocations.xml.dist
 
 RUN chmod +x /usr/local/bin/canary-entrypoint.sh
 

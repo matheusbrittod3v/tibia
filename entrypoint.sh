@@ -116,20 +116,9 @@ mysqlDatabase = "$(escape_lua "$CANARY_DB_NAME")"
 passwordType = "argon2"
 EOF
 
-cat > /canary/data/XML/vocations.xml <<'EOF'
-<?xml version="1.0" encoding="UTF-8"?>
-<vocations>
-	<vocation id="0" name="None" fromvoc="0" />
-	<vocation id="1" name="Sorcerer" fromvoc="1" />
-	<vocation id="2" name="Druid" fromvoc="2" />
-	<vocation id="3" name="Paladin" fromvoc="3" />
-	<vocation id="4" name="Knight" fromvoc="4" />
-	<vocation id="5" name="Master Sorcerer" fromvoc="1" />
-	<vocation id="6" name="Elder Druid" fromvoc="2" />
-	<vocation id="7" name="Royal Paladin" fromvoc="3" />
-	<vocation id="8" name="Elite Knight" fromvoc="4" />
-</vocations>
-EOF
+if [[ -f /canary/data/XML/vocations.xml.dist ]]; then
+	cp /canary/data/XML/vocations.xml.dist /canary/data/XML/vocations.xml
+fi
 
 cat > /canary/data/XML/groups.xml <<'EOF'
 <?xml version="1.0" encoding="UTF-8"?>
