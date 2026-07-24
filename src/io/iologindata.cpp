@@ -99,87 +99,119 @@ bool IOLoginData::loadPlayer(const std::shared_ptr<Player> &player, const DBResu
 		return false;
 	}
 
+	std::string loadStage = "start";
 	try {
 		// First
+		loadStage = "basic info";
 		if (!IOLoginDataLoad::loadPlayerBasicInfo(player, result)) {
 			g_logger().warn("[{}] - Failed to load player basic info", __FUNCTION__);
 			return false;
 		}
 
 		// Experience load
+		loadStage = "experience";
 		IOLoginDataLoad::loadPlayerExperience(player, result);
 
 		// Blessings load
+		loadStage = "blessings";
 		IOLoginDataLoad::loadPlayerBlessings(player, result);
 
 		// load conditions
+		loadStage = "conditions";
 		IOLoginDataLoad::loadPlayerConditions(player, result);
 
 		// load animus mastery
+		loadStage = "animus mastery";
 		IOLoginDataLoad::loadPlayerAnimusMastery(player, result);
 
 		// load default outfit
+		loadStage = "default outfit";
 		IOLoginDataLoad::loadPlayerDefaultOutfit(player, result);
 
 		// skull system load
+		loadStage = "skull system";
 		IOLoginDataLoad::loadPlayerSkullSystem(player, result);
 
 		// skill load
+		loadStage = "skills";
 		IOLoginDataLoad::loadPlayerSkill(player, result);
 
 		// kills load
+		loadStage = "kills";
 		IOLoginDataLoad::loadPlayerKills(player, result);
 
 		// guild load
+		loadStage = "guild";
 		IOLoginDataLoad::loadPlayerGuild(player, result);
 
 		// stash load items
+		loadStage = "stash";
 		IOLoginDataLoad::loadPlayerStashItems(player, result);
 
 		// bestiary charms
+		loadStage = "bestiary charms";
 		IOLoginDataLoad::loadPlayerBestiaryCharms(player, result);
 
 		// load inventory items
+		loadStage = "inventory";
 		IOLoginDataLoad::loadPlayerInventoryItems(player, result);
 
 		// store Inbox
+		loadStage = "store inbox";
 		IOLoginDataLoad::loadPlayerStoreInbox(player);
 
 		// load depot items
+		loadStage = "depot";
 		IOLoginDataLoad::loadPlayerDepotItems(player, result);
 
 		// load reward items
+		loadStage = "rewards";
 		IOLoginDataLoad::loadRewardItems(player);
 
 		// load inbox items
+		loadStage = "inbox";
 		IOLoginDataLoad::loadPlayerInboxItems(player, result);
 
 		// load storage map
+		loadStage = "storage";
 		IOLoginDataLoad::loadPlayerStorageMap(player);
 
 		// load vip
+		loadStage = "vip";
 		IOLoginDataLoad::loadPlayerVip(player, result);
 
 		// load prey class
+		loadStage = "prey";
 		IOLoginDataLoad::loadPlayerPreyClass(player, result);
 
 		// Load task hunting class
+		loadStage = "task hunting";
 		IOLoginDataLoad::loadPlayerTaskHuntingClass(player, result);
 
 		// Load instant spells list
+		loadStage = "instant spells";
 		IOLoginDataLoad::loadPlayerInstantSpellList(player, result);
 
 		if (!disableIrrelevantInfo) {
 			// Load additional data only if the player is online (e.g., forge, bosstiary)
+			loadStage = "online-only systems";
 			loadOnlyDataForOnlinePlayer(player, result);
 		}
 
 		return true;
 	} catch (const std::system_error &error) {
-		g_logger().warn("[{}] Error while load player: {}", __FUNCTION__, error.what());
+		const uint16_t vocationId = player->getVocation() ? player->getVocationId() : 0;
+		g_logger().warn(
+			"[{}] Error while load player '{}' (guid {}, vocation {}) at stage '{}': {}",
+			__FUNCTION__, player->getName(), player->getGUID(), vocationId, loadStage, error.what()
+		);
 		return false;
 	} catch (const std::exception &e) {
-		g_logger().warn("[{}] Error while load player: {}", __FUNCTION__, e.what());
+		const uint16_t vocationId = player->getVocation() ? player->getVocationId() : 0;
+		g_logger().warn(
+			"[{}] Error while load player '{}' (guid {}, vocation {}) at stage '{}': {}",
+			__FUNCTION__, player->getName(), player->getGUID(), vocationId, loadStage, e.what()
+		);
 		return false;
 	}
 }
