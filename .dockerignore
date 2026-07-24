@@ -3,3 +3,6 @@
 !docker-compose.yml
 !entrypoint.sh
 !schema.sql
+!data/
+!data/XML/
+!data/XML/vocations.xml
