@@ -124,10 +124,7 @@ bool IOLoginDataLoad::loadPlayerBasicInfo(const std::shared_ptr<Player> &player,
 		return false;
 	}
 
-	auto vocationId = result->getNumber<uint16_t>("vocation");
-	if (vocationId == 10) {
-		vocationId = 9;
-	}
+	const auto vocationId = result->getNumber<uint16_t>("vocation");
 	if (!player->setVocation(vocationId)) {
 		g_logger().error("Can't set vocation, player {} has vocation id {} which doesn't exist", player->name, vocationId);
 		return false;
