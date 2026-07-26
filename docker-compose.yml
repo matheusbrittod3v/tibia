@@ -30,3 +30,11 @@ services:
       CANARY_MAP_NAME: ${CANARY_MAP_NAME:-otservbr}
       CANARY_LEGACY_1100_GAME_PORT: ${CANARY_LEGACY_1100_GAME_PORT:-0}
       CANARY_LEGACY_860_GAME_PORT: ${CANARY_LEGACY_860_GAME_PORT:-0}
+    networks:
+      - default
+      - dokploy-network
+
+networks:
+  dokploy-network:
+    external: true
+    name: dokploy-network
