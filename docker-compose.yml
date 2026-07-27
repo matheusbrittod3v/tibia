@@ -11,6 +11,7 @@ services:
       - "${CANARY_GAME_PORT:-7172}:7172"
       - "${CANARY_STATUS_PORT:-7173}:7173"
     environment:
+      TZ: ${TZ:-America/Sao_Paulo}
       CANARY_DB_HOST: ${CANARY_DB_HOST:-db}
       CANARY_DB_PORT: ${CANARY_DB_PORT:-3306}
       CANARY_DB_NAME: ${CANARY_DB_NAME:-canary}

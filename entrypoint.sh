@@ -20,6 +20,7 @@ set -euo pipefail
 : "${CANARY_TOGGLE_DOWNLOAD_MAP:=true}"
 : "${CANARY_MAP_URL:=https://github.com/opentibiabr/canary/releases/download/v3.6.1/otservbr.otbm}"
 : "${CANARY_MAP_NAME:=otservbr}"
+: "${TZ:=America/Sao_Paulo}"
 
 escape_lua() {
 	printf '%s' "$1" | sed 's/\\/\\\\/g; s/"/\\"/g'
@@ -91,6 +92,8 @@ require_uint "CANARY_STATUS_PORT" "$CANARY_STATUS_PORT"
 require_uint "CANARY_STATUS_TIMEOUT" "$CANARY_STATUS_TIMEOUT"
 require_uint "CANARY_LEGACY_1100_GAME_PORT" "$CANARY_LEGACY_1100_GAME_PORT"
 require_uint "CANARY_LEGACY_860_GAME_PORT" "$CANARY_LEGACY_860_GAME_PORT"
+
+export TZ
 
 mkdir -p /canary/data/XML
 cat > /canary/config.lua <<EOF
