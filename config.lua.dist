@@ -626,9 +626,9 @@ defaultPriority = "high"
 startupDatabaseOptimization = true
 
 -- Status server information
-ownerName = "OpenTibiaBR"
+ownerName = "britto dev"
 ownerEmail = "opentibiabr@outlook.com"
-url = "http://docs.opentibiabr.com/"
+url = "https://astarot.online/"
 location = "South America"
 
 -- Sends Discord webhook notifications on startup, raids and shutdown.
