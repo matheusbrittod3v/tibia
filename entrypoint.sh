@@ -10,6 +10,10 @@ set -euo pipefail
 : "${CANARY_SERVER_NAME:=astarOT}"
 : "${CANARY_SERVER_IP:=play.astarot.online}"
 : "${CANARY_SERVER_LOCATION:=BRA}"
+: "${CANARY_OWNER_NAME:=britto dev}"
+: "${CANARY_OWNER_EMAIL:=opentibiabr@outlook.com}"
+: "${CANARY_SERVER_URL:=https://astarot.online/}"
+: "${CANARY_SERVER_MOTD:=Welcome to astarOT!}"
 : "${CANARY_LOGIN_PORT:=7171}"
 : "${CANARY_GAME_PORT:=7172}"
 : "${CANARY_STATUS_PORT:=7173}"
@@ -100,6 +104,10 @@ cat > /canary/config.lua <<EOF
 serverName = "$(escape_lua "$CANARY_SERVER_NAME")"
 ip = "$(escape_lua "$CANARY_SERVER_IP")"
 location = "$(escape_lua "$CANARY_SERVER_LOCATION")"
+ownerName = "$(escape_lua "$CANARY_OWNER_NAME")"
+ownerEmail = "$(escape_lua "$CANARY_OWNER_EMAIL")"
+url = "$(escape_lua "$CANARY_SERVER_URL")"
+serverMotd = "$(escape_lua "$CANARY_SERVER_MOTD")"
 loginProtocolPort = ${CANARY_LOGIN_PORT}
 gameProtocolPort = ${CANARY_GAME_PORT}
 legacy1100GameProtocolPort = ${CANARY_LEGACY_1100_GAME_PORT}
