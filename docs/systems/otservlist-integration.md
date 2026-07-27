@@ -13,8 +13,9 @@ This checklist keeps the server visible on OTServList and ensures the site or la
 - Open the login port used by the client: `7171/tcp` by default.
 - Open the game port used by the client: `7172/tcp` by default.
 - Expose the status port that matches `statusProtocolPort`.
-- If you keep the default `statusProtocolPort = 7171`, OTServList will query status through the same public port used by login.
-- If you prefer a dedicated status port, publish it explicitly and keep the firewall and NAT mapping aligned with the chosen value.
+- The default `statusProtocolPort` is `7173`, so OTServList can query a
+  dedicated status listener instead of sharing the login port.
+- Keep the firewall and NAT mapping aligned with the chosen value.
 
 ## Server config
 
@@ -48,4 +49,3 @@ otservlist.org-delete
   - `/status.json`
   - `/api/v1/status`
 - Use it for badges, landing pages, or external monitors.
-

@@ -102,12 +102,11 @@ Repository defaults in [config.lua.dist](../../config.lua.dist) remain:
 - `gameProtocolPort = 7172`
 - `legacy1100GameProtocolPort = 0`
 - `legacy860GameProtocolPort = 0`
-- `statusProtocolPort = 7171`
+- `statusProtocolPort = 7173`
 
 With the repository defaults, legacy game ports are auto-selected at startup.
-`statusProtocolPort` shares `7171` with the login protocol by default; the
-Docker quickstart publishes a separate status port so the host mapping stays
-predictable.
+`statusProtocolPort` uses `7173` by default, which matches the Docker
+quickstart and keeps the status listener separate from the login socket.
 
 Legacy and modern clients must still start on the account login port. The game
 ports returned in the character list are profile-specific world ports, not a

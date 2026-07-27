@@ -68,7 +68,7 @@ gameProtocolPort = 7172
 -- gameProtocolPort while avoiding loginProtocolPort and statusProtocolPort.
 legacy1100GameProtocolPort = 0
 legacy860GameProtocolPort = 0
-statusProtocolPort = 7171
+statusProtocolPort = 7173
 maxPlayers = 0
 serverName = "astarOT"
 serverMotd = "Welcome to astarOT!"
