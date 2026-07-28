@@ -11,6 +11,7 @@
 
 #include <algorithm>
 
+#include "config/configmanager.hpp"
 #include "database/database.hpp"
 #include "enums/account_coins.hpp"
 #include "enums/account_errors.hpp"
@@ -262,8 +263,13 @@ bool AccountRepositoryDB::registerCoinsTransaction(
 };
 
 bool AccountRepositoryDB::loadAccountPlayers(std::unique_ptr<AccountInfo> &acc) const {
+	const auto escrowAccountId = g_configManager().getNumber(CHAR_BAZAAR_ESCROW_ACCOUNT_ID);
 	auto result = g_database().storeQuery(
-		fmt::format("SELECT `name`, `deletion` FROM `players` WHERE `account_id` = {} ORDER BY `name` ASC", acc->id)
+		fmt::format(
+			"SELECT `name`, `deletion` FROM `players` WHERE `account_id` = {} AND `account_id` <> {} ORDER BY `name` ASC",
+			acc->id,
+			escrowAccountId
+		)
 	);
 
 	if (!result) {

@@ -1463,6 +1463,15 @@ ReturnValue Game::getPlayerByNameWildcard(const std::string &s, std::shared_ptr<
 }
 
 std::vector<std::shared_ptr<Player>> Game::getPlayersByAccount(const std::shared_ptr<Account> &acc, bool allowOffline /* = false */) {
+	if (!acc) {
+		return {};
+	}
+
+	const auto escrowAccountId = g_configManager().getNumber(CHAR_BAZAAR_ESCROW_ACCOUNT_ID);
+	if (escrowAccountId != 0 && acc->getID() == escrowAccountId) {
+		return {};
+	}
+
 	auto [accountPlayers, error] = acc->getAccountPlayers();
 	if (error != AccountErrors_t::Ok) {
 		return {};
@@ -1947,6 +1956,10 @@ ReturnValue Game::internalMoveCreature(const std::shared_ptr<Creature> &creature
 
 ReturnValue Game::internalMoveCreature(const std::shared_ptr<Creature> &creature, const std::shared_ptr<Tile> &toTile, uint32_t flags /*= 0*/) {
 	metrics::method_latency measure(__METRICS_METHOD_NAME__);
+	if (const auto &player = creature ? creature->getPlayer() : nullptr; player && player->isBazaarEscrowLocked()) {
+		return RETURNVALUE_NOTPOSSIBLE;
+	}
+
 	if (creature->hasCondition(CONDITION_ROOTED)) {
 		return RETURNVALUE_NOTPOSSIBLE;
 	}
@@ -2288,6 +2301,10 @@ ReturnValue Game::checkMoveItemToCylinder(const std::shared_ptr<Player> &player,
 		return RETURNVALUE_NOTPOSSIBLE;
 	}
 
+	if (player->isBazaarEscrowLocked()) {
+		return RETURNVALUE_NOTPOSSIBLE;
+	}
+
 	if (std::shared_ptr<Container> toCylinderContainer = toCylinder->getContainer()) {
 		auto containerID = toCylinderContainer->getID();
 
@@ -2426,6 +2443,10 @@ ReturnValue Game::internalMoveItem(std::shared_ptr<Cylinder> fromCylinder, std::
 	}
 	if (toCylinder == nullptr) {
 		g_logger().error("[{}] toCylinder is nullptr", __FUNCTION__);
+		return RETURNVALUE_NOTPOSSIBLE;
+	}
+
+	if (const auto &actorPlayer = actor ? actor->getPlayer() : nullptr; actorPlayer && actorPlayer->isBazaarEscrowLocked()) {
 		return RETURNVALUE_NOTPOSSIBLE;
 	}
 
@@ -4565,6 +4586,11 @@ void Game::playerUseItemEx(uint32_t playerId, const Position &fromPos, uint8_t f
 		return;
 	}
 
+	if (player->isBazaarEscrowLocked()) {
+		player->sendCancelMessage("This character is locked in character bazaar escrow.");
+		return;
+	}
+
 	bool isHotkey = (fromPos.x == 0xFFFF && fromPos.y == 0 && fromPos.z == 0);
 	if (isHotkey && !g_configManager().getBoolean(AIMBOT_HOTKEY_ENABLED)) {
 		return;
@@ -4728,6 +4754,11 @@ void Game::playerUseItem(uint32_t playerId, const Position &pos, uint8_t stackPo
 		return;
 	}
 
+	if (player->isBazaarEscrowLocked()) {
+		player->sendCancelMessage("This character is locked in character bazaar escrow.");
+		return;
+	}
+
 	bool isHotkey = (pos.x == 0xFFFF && pos.y == 0 && pos.z == 0);
 	if (isHotkey && !g_configManager().getBoolean(AIMBOT_HOTKEY_ENABLED)) {
 		return;
@@ -4839,6 +4870,11 @@ void Game::playerUseWithCreature(uint32_t playerId, const Position &fromPos, uin
 	metrics::method_latency measure(__METRICS_METHOD_NAME__);
 	const auto &player = getPlayerByID(playerId);
 	if (!player) {
+		return;
+	}
+
+	if (player->isBazaarEscrowLocked()) {
+		player->sendCancelMessage("This character is locked in character bazaar escrow.");
 		return;
 	}
 
@@ -5785,9 +5821,19 @@ void Game::playerRequestTrade(uint32_t playerId, const Position &pos, uint8_t st
 		return;
 	}
 
+	if (player->isBazaarEscrowLocked()) {
+		player->sendCancelMessage("This character is locked in character bazaar escrow.");
+		return;
+	}
+
 	std::shared_ptr<Player> tradePartner = getPlayerByID(tradePlayerId);
 	if (!tradePartner || tradePartner == player) {
 		player->sendTextMessage(MESSAGE_FAILURE, "Sorry, not possible.");
+		return;
+	}
+
+	if (tradePartner->isBazaarEscrowLocked()) {
+		player->sendCancelMessage("This character is locked in character bazaar escrow.");
 		return;
 	}
 
@@ -5934,6 +5980,11 @@ void Game::playerRequestTrade(uint32_t playerId, const Position &pos, uint8_t st
 }
 
 bool Game::internalStartTrade(const std::shared_ptr<Player> &player, const std::shared_ptr<Player> &tradePartner, const std::shared_ptr<Item> &tradeItem) {
+	if (player->isBazaarEscrowLocked() || tradePartner->isBazaarEscrowLocked()) {
+		player->sendCancelMessage("This character is locked in character bazaar escrow.");
+		return false;
+	}
+
 	if (player->tradeState != TRADE_NONE && !(player->tradeState == TRADE_ACKNOWLEDGE && player->tradePartner == tradePartner)) {
 		player->sendCancelMessage(RETURNVALUE_YOUAREALREADYTRADING);
 		return false;
@@ -5974,12 +6025,22 @@ void Game::playerAcceptTrade(uint32_t playerId) {
 		return;
 	}
 
+	if (player->isBazaarEscrowLocked()) {
+		player->sendCancelMessage("This character is locked in character bazaar escrow.");
+		return;
+	}
+
 	if (!(player->getTradeState() == TRADE_ACKNOWLEDGE || player->getTradeState() == TRADE_INITIATED)) {
 		return;
 	}
 
 	std::shared_ptr<Player> tradePartner = player->tradePartner;
 	if (!tradePartner) {
+		return;
+	}
+
+	if (tradePartner->isBazaarEscrowLocked()) {
+		player->sendCancelMessage("This character is locked in character bazaar escrow.");
 		return;
 	}
 

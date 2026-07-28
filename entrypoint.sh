@@ -21,6 +21,7 @@ set -euo pipefail
 : "${CANARY_LEGACY_1100_GAME_PORT:=0}"
 : "${CANARY_LEGACY_860_GAME_PORT:=0}"
 : "${CANARY_DATA_PACK:=data-otservbr-global}"
+: "${CANARY_CHAR_BAZAAR_ESCROW_ACCOUNT_ID:=2}"
 : "${CANARY_TOGGLE_DOWNLOAD_MAP:=true}"
 : "${CANARY_MAP_URL:=https://github.com/opentibiabr/canary/releases/download/v3.6.1/otservbr.otbm}"
 : "${CANARY_MAP_NAME:=otservbr}"
@@ -96,6 +97,7 @@ require_uint "CANARY_STATUS_PORT" "$CANARY_STATUS_PORT"
 require_uint "CANARY_STATUS_TIMEOUT" "$CANARY_STATUS_TIMEOUT"
 require_uint "CANARY_LEGACY_1100_GAME_PORT" "$CANARY_LEGACY_1100_GAME_PORT"
 require_uint "CANARY_LEGACY_860_GAME_PORT" "$CANARY_LEGACY_860_GAME_PORT"
+require_uint "CANARY_CHAR_BAZAAR_ESCROW_ACCOUNT_ID" "$CANARY_CHAR_BAZAAR_ESCROW_ACCOUNT_ID"
 
 export TZ
 
@@ -117,6 +119,7 @@ statusTimeout = ${CANARY_STATUS_TIMEOUT}
 worldType = "pvp"
 dataPackDirectory = "$(escape_lua "$CANARY_DATA_PACK")"
 toggleDownloadMap = ${CANARY_TOGGLE_DOWNLOAD_MAP}
+charBazaarEscrowAccountId = ${CANARY_CHAR_BAZAAR_ESCROW_ACCOUNT_ID}
 mapDownloadUrl = "$(escape_lua "$CANARY_MAP_URL")"
 mapName = "$(escape_lua "$CANARY_MAP_NAME")"
 mysqlHost = "$(escape_lua "$CANARY_DB_HOST")"

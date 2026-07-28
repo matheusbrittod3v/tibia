@@ -3380,7 +3380,7 @@ void Player::setNextAction(int64_t time) {
 }
 
 bool Player::canDoAction() const {
-	return nextAction <= OTSYS_TIME();
+	return !isBazaarEscrowLocked() && nextAction <= OTSYS_TIME();
 }
 
 void Player::setNextNecklaceAction(int64_t time) {
@@ -3410,7 +3410,7 @@ void Player::setNextPotionAction(int64_t time) {
 }
 
 bool Player::canDoPotionAction() const {
-	return nextPotionAction <= OTSYS_TIME();
+	return !isBazaarEscrowLocked() && nextPotionAction <= OTSYS_TIME();
 }
 
 void Player::setLoginProtection(int64_t time) {
@@ -10039,6 +10039,10 @@ ReturnValue Player::addItemBatch(
 }
 
 ReturnValue Player::removeItem(const std::shared_ptr<Item> &item, uint32_t count /*= 0*/) {
+	if (isBazaarEscrowLocked()) {
+		return RETURNVALUE_NOTPOSSIBLE;
+	}
+
 	if (!item) {
 		g_logger().debug("{} - Item is nullptr", __FUNCTION__);
 		return RETURNVALUE_NOTPOSSIBLE;
@@ -10099,6 +10103,11 @@ uint32_t sendStowItems(const std::shared_ptr<Item> &item, const std::shared_ptr<
 }
 
 void Player::stowItem(const std::shared_ptr<Item> &item, uint32_t count, bool allItems) {
+	if (isBazaarEscrowLocked()) {
+		sendCancelMessage("This character is locked in character bazaar escrow.");
+		return;
+	}
+
 	if (!item || (!item->isItemStorable() && item->getID() != ITEM_GOLD_POUCH)) {
 		sendCancelMessage("This item cannot be stowed here.");
 		return;
@@ -12412,6 +12421,15 @@ uint32_t Player::getAccountId() const {
 
 std::shared_ptr<Account> Player::getAccount() const {
 	return account;
+}
+
+bool Player::isBazaarEscrowLocked() const {
+	if (!account) {
+		return false;
+	}
+
+	const auto escrowAccountId = g_configManager().getNumber(CHAR_BAZAAR_ESCROW_ACCOUNT_ID);
+	return escrowAccountId != 0 && account->getID() == escrowAccountId;
 }
 
 // Prey system

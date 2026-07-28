@@ -1,5 +1,8 @@
 #include "account/account_repository_db.hpp"
+#include "config/configmanager.hpp"
+#include "creatures/players/player.hpp"
 #include "enums/account_type.hpp"
+#include "io/functions/iologindata_load_player.hpp"
 #include "lib/logging/in_memory_logger.hpp"
 #include "test_env.hpp"
 #include "utils/tools.hpp"
@@ -76,6 +79,31 @@ namespace it_account_repo_db {
 		}
 
 		return lastDay;
+	}
+
+	inline void createEscrowAccountWithActivePlayer(Database &db, uint32_t accountId, const std::string &playerName) {
+		auto lastDay = getTimeNow() + 11 * 86400 + 3600;
+		ASSERT_TRUE(db.executeQuery(fmt::format(
+			"INSERT INTO `accounts` "
+			"(`id`, `name`, `email`, `password`, `type`, `premdays`, `lastday`, `premdays_purchased`, `creation`) "
+			"VALUES({}, 'escrow_{}', 'escrow_{}@test.com', '', 3, 11, {}, 11, 42183281)",
+			accountId,
+			accountId,
+			accountId,
+			lastDay
+		)));
+
+		ASSERT_TRUE(db.executeQuery(fmt::format(
+			"INSERT INTO `account_sessions` (`id`, `account_id`, `expires`) VALUES ('{}', {}, 1337)",
+			transformToSHA1(playerName),
+			accountId
+		)));
+
+		ASSERT_TRUE(db.executeQuery(fmt::format(
+			"INSERT INTO `players` (`name`, `account_id`, `conditions`, `deletion`) VALUES ('{}', {}, '', 0)",
+			playerName,
+			accountId
+		)));
 	}
 
 	inline void assertAccountLoad(const AccountInfo &acc, const TestIds &ids, time_t expectedLastDay) {
@@ -230,6 +258,34 @@ namespace it_account_repo_db {
 			EXPECT_EQ(10, acc2->premiumRemainingDays);
 			EXPECT_NEAR(static_cast<double>(acc2->premiumLastDay), static_cast<double>(acc->premiumLastDay), 60.0);
 			EXPECT_EQ(0, acc2->sessionExpires);
+		})();
+	}
+
+	TEST_F(AccountRepositoryDBTest, EscrowAccountPlayersAreHiddenFromLoginLists) {
+		auto &db = g_database();
+		databaseTest(db, [&db] {
+			AccountRepositoryDB accRepo {};
+			const auto escrowAccountId = g_configManager().getNumber(CHAR_BAZAAR_ESCROW_ACCOUNT_ID);
+			ASSERT_GT(escrowAccountId, 0u);
+			const auto playerName = fmt::format("escrow_player_{}", escrowAccountId);
+			ASSERT_NO_FATAL_FAILURE(createEscrowAccountWithActivePlayer(db, escrowAccountId, playerName));
+
+			auto acc = std::make_unique<AccountInfo>();
+			ASSERT_TRUE(accRepo.loadByID(escrowAccountId, acc));
+			EXPECT_EQ(0u, acc->players.size());
+		})();
+	}
+
+	TEST_F(AccountRepositoryDBTest, EscrowCharactersCannotEnterLoginFlow) {
+		auto &db = g_database();
+		databaseTest(db, [&db] {
+			const auto escrowAccountId = g_configManager().getNumber(CHAR_BAZAAR_ESCROW_ACCOUNT_ID);
+			ASSERT_GT(escrowAccountId, 0u);
+			const auto playerName = fmt::format("escrow_login_{}", escrowAccountId);
+			ASSERT_NO_FATAL_FAILURE(createEscrowAccountWithActivePlayer(db, escrowAccountId, playerName));
+
+			auto player = std::make_shared<Player>();
+			EXPECT_FALSE(IOLoginDataLoad::preLoadPlayer(player, playerName));
 		})();
 	}
 

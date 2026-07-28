@@ -162,6 +162,7 @@ bool ConfigManager::load() {
 	loadBoolConfig(L, TOGGLE_SERVER_IS_RETRO, "toggleServerIsRetroPVP", false);
 	loadBoolConfig(L, TOGGLE_TRAVELS_FREE, "toggleTravelsFree", false);
 	loadBoolConfig(L, TOGGLE_WHEELSYSTEM, "wheelSystemEnabled", true);
+	loadIntConfig(L, CHAR_BAZAAR_ESCROW_ACCOUNT_ID, "charBazaarEscrowAccountId", 2);
 	loadBoolConfig(L, USE_ANY_DATAPACK_FOLDER, "useAnyDatapackFolder", false);
 	loadBoolConfig(L, VIP_AUTOLOOT_VIP_ONLY, "vipAutoLootVipOnly", false);
 	loadBoolConfig(L, VIP_KEEP_HOUSE, "vipKeepHouse", false);

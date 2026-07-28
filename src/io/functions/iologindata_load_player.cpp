@@ -87,6 +87,12 @@ bool IOLoginDataLoad::preLoadPlayer(const std::shared_ptr<Player> &player, const
 	player->setGroup(group);
 
 	auto accountId = result->getNumber<uint32_t>("account_id");
+	const auto escrowAccountId = g_configManager().getNumber(CHAR_BAZAAR_ESCROW_ACCOUNT_ID);
+	if (escrowAccountId != 0 && accountId == escrowAccountId) {
+		g_logger().warn("Player {} is assigned to the bazaar escrow account {} and cannot log in.", name, escrowAccountId);
+		return false;
+	}
+
 	if (!player->setAccount(accountId)) {
 		g_logger().error("Player {} has account id {} which doesn't exist", player->name, accountId);
 		return false;

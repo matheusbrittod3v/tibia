@@ -1300,6 +1300,7 @@ public:
 	uint8_t getAccountType() const;
 	uint32_t getAccountId() const;
 	std::shared_ptr<Account> getAccount() const;
+	bool isBazaarEscrowLocked() const;
 
 	// Prey system
 	void initializePrey();
