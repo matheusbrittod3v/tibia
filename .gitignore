@@ -3,3 +3,10 @@
 build
 vcpkg_installed
 vcproj
+
+# Local credentials and generated dependencies
+.env.*
+!.env.example
+node_modules/
+vendor/
+*.log
